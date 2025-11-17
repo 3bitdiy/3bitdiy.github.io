@@ -1,0 +1,534 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>3bit.diy — web | code | data</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<style>
+:root {
+  --bg: #000000;
+  --fg: #ffffff;
+  --muted: #7a7a7a;
+  --border: #1c1c1c;
+
+  --fs-base: clamp(0.9rem, 0.86rem + 0.25vw, 1rem);
+  --fs-sm: clamp(0.75rem, 0.7rem + 0.2vw, 0.85rem);
+  --fs-h1: clamp(2.1rem, 1.7rem + 2vw, 3.1rem);
+
+  --lh-tight: 1.1;
+  --lh-normal: 1.4;
+
+  --space-xs: clamp(0.35rem, 0.3rem + 0.2vw, 0.55rem);
+  --space-sm: clamp(0.6rem, 0.5rem + 0.3vw, 0.9rem);
+  --space-md: clamp(1.1rem, 0.9rem + 0.7vw, 1.7rem);
+  --space-lg: clamp(1.8rem, 1.4rem + 1.7vw, 2.8rem);
+
+  --max-width: 1080px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: "SF Mono", ui-monospace, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+  font-size: var(--fs-base);
+  line-height: var(--lh-normal);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+a:focus-visible {
+  outline: 1px solid var(--fg);
+  outline-offset: 2px;
+}
+
+.page {
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding-inline: clamp(1.1rem, 3vw, 2rem);
+}
+
+/* HEADER */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+}
+
+.header-inner {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--space-sm);
+  padding-block: var(--space-xs);
+}
+
+.header-brand {
+  font-size: var(--fs-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+}
+
+.header-meta {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-sm);
+  font-size: var(--fs-sm);
+  color: var(--muted);
+}
+.header-meta span { white-space: nowrap; }
+
+.header-nav {
+  display: flex;
+  gap: var(--space-sm);
+  justify-content: flex-end;
+}
+.header-nav a {
+  font-size: var(--fs-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--muted);
+}
+.header-nav a:hover { color: var(--fg); }
+
+@media (max-width: 780px) {
+  .header-inner {
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+    row-gap: var(--space-xs);
+  }
+  .header-meta {
+    grid-column: 1 / -1;
+    justify-content: flex-start;
+    font-size: 0.68rem;
+  }
+}
+
+/* HERO */
+.hero {
+  border-bottom: 1px solid var(--border);
+  padding-block: var(--space-lg);
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(0, 1.1fr);
+  gap: var(--space-lg);
+  align-items: flex-start;
+}
+@media (max-width: 900px) {
+  .hero-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-md);
+  }
+}
+
+.hero-kicker {
+  font-size: var(--fs-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--muted);
+}
+
+.hero-title {
+  margin-top: var(--space-sm);
+  font-size: var(--fs-h1);
+  line-height: var(--lh-tight);
+  letter-spacing: -0.02em;
+}
+
+.hero-body {
+  margin-top: var(--space-md);
+  max-width: 44ch;
+  color: var(--muted);
+}
+.hero-body strong {
+  color: var(--fg);
+  font-weight: 400;
+}
+
+.hero-actions {
+  margin-top: var(--space-md);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.55rem 1.25rem;
+  border: 1px solid var(--border);
+  background: #050505;
+  color: var(--fg);
+  font-size: var(--fs-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  cursor: pointer;
+}
+.btn:hover { background: #101010; }
+
+.hero-note {
+  margin-top: var(--space-sm);
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+/* HERO PANEL (STATUS LOG) */
+.hero-panel {
+  border: 1px solid var(--border);
+  padding: var(--space-md);
+  display: grid;
+  gap: var(--space-sm);
+  background: #050505;
+}
+
+.hero-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: var(--fs-sm);
+}
+
+.hero-panel-label {
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--muted);
+}
+
+.hero-panel-status {
+  font-size: 0.7rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+}
+
+.hero-log {
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding-block: var(--space-xs);
+  font-size: var(--fs-sm);
+}
+
+.hero-log-line {
+  display: flex;
+  gap: var(--space-xs);
+  padding-block: 0.15rem;
+  white-space: nowrap;
+}
+.hero-log-prefix {
+  color: var(--muted);
+  flex: 0 0 auto;
+}
+.hero-log-text {
+  flex: 1 1 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hero-panel-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: 0.7rem;
+  color: var(--muted);
+}
+.hero-panel-footer span { white-space: nowrap; }
+
+/* SECTIONS */
+.section {
+  padding-block: var(--space-lg);
+  border-bottom: 1px solid var(--border);
+}
+.section h2 {
+  margin: 0 0 var(--space-sm);
+  font-size: 1.2rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.section p {
+  margin: 0;
+  max-width: 52ch;
+  color: var(--muted);
+}
+
+/* PROJECTS GRID */
+.projects-grid {
+  margin-top: var(--space-md);
+  border: 1px solid var(--border);
+  border-collapse: collapse;
+  width: 100%;
+  font-size: var(--fs-sm);
+}
+
+.projects-grid thead tr {
+  background: #050505;
+}
+.projects-grid th,
+.projects-grid td {
+  border-bottom: 1px solid var(--border);
+  padding: 0.35rem 0.5rem;
+  text-align: left;
+}
+.projects-grid th {
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+  font-weight: 400;
+}
+.projects-grid td.slug-cell {
+  color: var(--muted);
+}
+.projects-grid tbody tr:hover td {
+  background: #080808;
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+  <div class="page header-inner">
+    <div class="header-brand">3bit.diy</div>
+    <div class="header-meta">
+      <span>[ location: novi sad ]</span>
+      <span>[ mode: web / code / data ]</span>
+    </div>
+    <nav class="header-nav" aria-label="Primary">
+      <a href="#work">work</a>
+      <a href="#about">about</a>
+      <a href="#contact">contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="page hero-grid">
+
+      <!-- LEFT -->
+      <div>
+        <div class="hero-kicker">interface construction unit</div>
+        <h1 id="hero-title" class="hero-title">
+          web systems for art, research, and small organisations.
+        </h1>
+
+        <p class="hero-body">
+          3bit.diy operates as a small studio for <strong>precise, minimal websites</strong>:
+          protest archives, art agents, research platforms, and portfolios that need to stay
+          online and <strong>not look like templates</strong>.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#work" class="btn">view work</a>
+          <a href="#about" class="btn">studio info</a>
+        </div>
+
+        <div class="hero-note">
+          no sliders, no noise, no frameworks unless needed.
+        </div>
+      </div>
+
+      <!-- RIGHT: LOG / STATUS (puni se iz JSON-a) -->
+      <aside class="hero-panel" aria-label="Current work log">
+        <div class="hero-panel-header">
+          <div class="hero-panel-label">status log</div>
+          <div class="hero-panel-status">[ online ]</div>
+        </div>
+
+        <div id="hero-log" class="hero-log">
+          <!-- JS će ovde ubaciti linije iz status-log.json -->
+        </div>
+
+        <div class="hero-panel-footer">
+          <span>[ stack: html · css · js · wp · custom ]</span>
+          <span>[ response: email → short call → prototype ]</span>
+        </div>
+      </aside>
+
+    </div>
+  </section>
+
+  <!-- WORK / PROJECTS INDEX (CSV GRID) -->
+  <section id="work" class="section">
+    <div class="page">
+      <h2>selected work</h2>
+      <p>
+        projekti su predstavljeni kao tekstualni index; svaka linija je jedna instanca rada
+        (godina / naziv / uloga / stack / link).
+      </p>
+
+      <table class="projects-grid" aria-label="Projects index">
+        <thead>
+          <tr>
+            <th scope="col">id</th>
+            <th scope="col">year</th>
+            <th scope="col">title</th>
+            <th scope="col">role</th>
+            <th scope="col">stack</th>
+          </tr>
+        </thead>
+        <tbody id="projects-grid">
+          <!-- JS puni iz projects.csv -->
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="section">
+    <div class="page">
+      <h2>about</h2>
+      <p>
+        kratki opis studija, bez narativa: ko, šta, kako, za koga. ovde možeš da objasniš
+        da studio nastaje iz umetničke i istraživačke prakse, sa naglaskom na dugoročno
+        održive, minimalne sajtove.
+      </p>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section">
+    <div class="page">
+      <h2>contact</h2>
+      <p>
+        e-mail, eventualno jedan PGP fingerprint, i kratka napomena o načinu rada
+        (kapacitet po mesecima, minimalni obim projekta, jezik komunikacije).
+      </p>
+    </div>
+  </section>
+</main>
+
+<script>
+// minimal helper za status-log.json
+async function loadStatusLog() {
+  const logEl = document.getElementById('hero-log');
+  if (!logEl) return;
+
+  try {
+    const res = await fetch('./data/status-log.json', { cache: 'no-store' });
+    if (!res.ok) throw new Error('status-log.json not found');
+    const items = await res.json();
+
+    logEl.innerHTML = '';
+
+    items.forEach((item) => {
+      const line = document.createElement('div');
+      line.className = 'hero-log-line';
+
+      const prefix = document.createElement('span');
+      prefix.className = 'hero-log-prefix';
+      prefix.textContent = `[${item.state}]`;
+
+      const text = document.createElement('span');
+      text.className = 'hero-log-text';
+      text.textContent = item.text;
+
+      line.appendChild(prefix);
+      line.appendChild(text);
+      logEl.appendChild(line);
+    });
+  } catch (err) {
+    logEl.innerHTML = '<div class="hero-log-line"><span class="hero-log-prefix">[err]</span><span class="hero-log-text">status-log.json unavailable</span></div>';
+  }
+}
+
+// minimal helper za projects.csv (semicolon-delimited)
+async function loadProjects() {
+  const tbody = document.getElementById('projects-grid');
+  if (!tbody) return;
+
+  try {
+    const res = await fetch('./data/projects.csv', { cache: 'no-store' });
+    if (!res.ok) throw new Error('projects.csv not found');
+    const text = await res.text();
+
+    const lines = text
+      .trim()
+      .split('\n')
+      .map((l) => l.trim())
+      .filter(Boolean);
+
+    if (lines.length <= 1) return;
+
+    const header = lines[0].split(';');
+    const rows = lines.slice(1);
+
+    tbody.innerHTML = '';
+
+    rows.forEach((line) => {
+      const cols = line.split(';');
+      if (!cols.length) return;
+
+      const row = document.createElement('tr');
+
+      const slug = cols[0] || '';
+      const year = cols[1] || '';
+      const title = cols[2] || '';
+      const role = cols[3] || '';
+      const stack = cols[4] || '';
+      const url = cols[5] || '';
+
+      const slugCell = document.createElement('td');
+      slugCell.className = 'slug-cell';
+      slugCell.textContent = slug;
+
+      const yearCell = document.createElement('td');
+      yearCell.textContent = year;
+
+      const titleCell = document.createElement('td');
+      if (url) {
+        const link = document.createElement('a');
+        link.href = url;
+        link.textContent = title || url;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        titleCell.appendChild(link);
+      } else {
+        titleCell.textContent = title;
+      }
+
+      const roleCell = document.createElement('td');
+      roleCell.textContent = role;
+
+      const stackCell = document.createElement('td');
+      stackCell.textContent = stack;
+
+      row.appendChild(slugCell);
+      row.appendChild(yearCell);
+      row.appendChild(titleCell);
+      row.appendChild(roleCell);
+      row.appendChild(stackCell);
+
+      tbody.appendChild(row);
+    });
+  } catch (err) {
+    tbody.innerHTML = '<tr><td colspan="5">projects.csv unavailable</td></tr>';
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  loadStatusLog();
+  loadProjects();
+});
+</script>
+
+</body>
+</html>
