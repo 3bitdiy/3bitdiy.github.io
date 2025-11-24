@@ -34,7 +34,7 @@
       <div>
         <div class="hero-kicker">interface construction unit</div>
         <h1 id="hero-title" class="hero-title">
-          web systems for art, research, and small organisations.
+          web systems for art, research, and small organisations
         </h1>
 
         <p class="hero-body">
@@ -81,21 +81,22 @@
         projekti su predstavljeni kao tekstualni index; svaka linija je jedna instanca rada
         (godina / naziv / uloga / stack / link).
       </p> -->
-
-      <table class="projects-grid" aria-label="Projects index">
-        <thead>
-          <tr>
-            <th scope="col">id</th>
-            <th scope="col">year</th>
-            <th scope="col">title</th>
-            <th scope="col">role</th>
-            <th scope="col">stack</th>
-          </tr>
-        </thead>
-        <tbody id="projects-grid">
-          <!-- JS puni iz projects.csv -->
-        </tbody>
-      </table>
+      <!-- <div class="projects-wrapper"> -->
+        <table class="projects-grid" aria-label="Projects index">
+          <thead>
+            <tr>
+              <th scope="col">id</th>
+              <th scope="col">year</th>
+              <th scope="col">title</th>
+              <th scope="col">role</th>
+              <th scope="col">stack</th>
+            </tr>
+          </thead>
+          <tbody id="projects-grid">
+            <!-- JS puni iz projects.csv -->
+          </tbody>
+        </table>
+      <!-- </div> -->
     </div>
   </section>
 
@@ -222,6 +223,12 @@ async function loadProjects() {
       row.appendChild(stackCell);
 
       tbody.appendChild(row);
+
+      slugCell.setAttribute('data-label', 'id');
+      yearCell.setAttribute('data-label', 'year');
+      titleCell.setAttribute('data-label', 'title');
+      roleCell.setAttribute('data-label', 'role');
+      stackCell.setAttribute('data-label', 'stack');
     });
   } catch (err) {
     tbody.innerHTML = '<tr><td colspan="5">projects.csv unavailable</td></tr>';

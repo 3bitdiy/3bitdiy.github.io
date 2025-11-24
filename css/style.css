@@ -301,3 +301,53 @@ a:focus-visible {
 .projects-grid tbody tr:hover td {
   background: #080808;
 }
+
+/* responsive wrapper for projects table */
+/* .projects-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+} */
+
+/* optional: never scroll on large screens */
+/* @media (max-width: 680px) {
+  .projects-grid {
+    min-width: 600px;
+  }
+} */
+
+@media (max-width: 650px) {
+  .projects-grid thead {
+    display: none; /* sakrij header */
+  }
+
+  .projects-grid,
+  .projects-grid tbody,
+  .projects-grid tr,
+  .projects-grid td {
+    display: block;
+    width: 100%;
+  }
+
+  .projects-grid tr {
+    margin-bottom: 1rem;
+    padding: 0.8rem;
+    border: 1px solid var(--border);
+    background: #050505;
+  }
+
+  .projects-grid td {
+    border: none;
+    padding: 0.2rem 0;
+  }
+
+  .projects-grid td::before {
+    content: attr(data-label);
+    display: inline-block;
+    width: 30%;
+    font-size: var(--fs-sm);
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+  }
+}
