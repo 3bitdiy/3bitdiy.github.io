@@ -1,8 +1,10 @@
 :root {
-  --bg: #000000;
-  --fg: #ffffff;
-  --muted: #7a7a7a;
-  --border: #1c1c1c;
+  --bg: #f5f5f5;
+  --fg: #1f1f1f;
+  --muted: #5d5d5d;
+  --border: #d3d3d3;
+  --surface: #ffffff;
+  --surface-hover: #ececec;
 
   --fs-base: clamp(0.9rem, 0.86rem + 0.25vw, 1rem);
   --fs-sm: clamp(0.75rem, 0.7rem + 0.2vw, 0.85rem);
@@ -25,22 +27,28 @@
   box-sizing: border-box;
 }
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+}
 
 body {
   margin: 0;
   background: var(--bg);
   color: var(--fg);
-  font-family: "SF Mono", ui-monospace, Menlo, Monaco, Consolas,
-    "Liberation Mono", "Courier New", monospace;
+  font-family:
+    "SF Mono", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New", monospace;
   font-size: var(--fs-base);
   line-height: var(--lh-normal);
   letter-spacing: -0.05em;
 }
 
 a {
-  color: inherit;
-  text-decoration: none;
+  color: #0000ee;
+  text-decoration: underline;
+}
+a:visited {
+  color: #551a8b;
 }
 a:focus-visible {
   outline: 1px solid var(--fg);
@@ -83,7 +91,9 @@ a:focus-visible {
   font-size: var(--fs-sm);
   color: var(--muted);
 }
-.header-meta span { white-space: nowrap; }
+.header-meta span {
+  white-space: nowrap;
+}
 
 .header-nav {
   display: flex;
@@ -94,9 +104,11 @@ a:focus-visible {
   font-size: var(--fs-sm);
   text-transform: uppercase;
   letter-spacing: 0.16em;
-  color: var(--muted);
+  color: #0000ee;
 }
-.header-nav a:hover { color: var(--fg); }
+.header-nav a:hover {
+  color: #0000cc;
+}
 
 @media (max-width: 780px) {
   .header-inner {
@@ -167,14 +179,17 @@ a:focus-visible {
   justify-content: center;
   padding: 0.55rem 1.25rem;
   border: 1px solid var(--border);
-  background: #050505;
+  background: var(--surface);
   color: var(--fg);
+  text-decoration: none;
   font-size: var(--fs-sm);
   text-transform: uppercase;
   letter-spacing: 0.18em;
   cursor: pointer;
 }
-.btn:hover { background: #101010; }
+.btn:hover {
+  background: var(--surface-hover);
+}
 
 .hero-note {
   margin-top: var(--space-sm);
@@ -188,7 +203,7 @@ a:focus-visible {
   padding: var(--space-md);
   display: grid;
   gap: var(--space-sm);
-  background: #050505;
+  background: var(--surface);
   max-width: 100%;
 }
 
@@ -245,7 +260,9 @@ a:focus-visible {
   font-size: 0.7rem;
   color: var(--muted);
 }
-.hero-panel-footer span { white-space: normal; }
+.hero-panel-footer span {
+  white-space: normal;
+}
 
 @media (max-width: 480px) {
   .hero-panel-footer {
@@ -281,7 +298,7 @@ a:focus-visible {
 }
 
 .projects-grid thead tr {
-  background: #050505;
+  background: var(--surface);
 }
 .projects-grid th,
 .projects-grid td {
@@ -299,7 +316,7 @@ a:focus-visible {
   color: var(--muted);
 }
 .projects-grid tbody tr:hover td {
-  background: #080808;
+  background: var(--surface-hover);
 }
 
 /* responsive wrapper for projects table */
@@ -333,7 +350,7 @@ a:focus-visible {
     margin-bottom: 1rem;
     padding: 0.8rem;
     border: 1px solid var(--border);
-    background: #050505;
+    background: var(--surface);
   }
 
   .projects-grid td {
